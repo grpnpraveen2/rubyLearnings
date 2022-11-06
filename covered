@@ -17,4 +17,8 @@ colect
 Struct
 max_by 
 for filter : key word is select
-inject () {} 
+inject () {}
+slice 
+except 
+sum 
+inheritence and poly 

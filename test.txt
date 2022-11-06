@@ -1,3 +1,1 @@
-6.times do |index|
-    puts index
-endFine
+No Data Found
