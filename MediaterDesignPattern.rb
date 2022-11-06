@@ -96,18 +96,6 @@ while b
         Show(text_field,initValue,list)
     else
         initValue=initValue + inp.chomp
-        text_field.value = initValue
-        # puts list.filteredWords.inspect
-        f=File.open('test.txt','w+')
-        if list.filteredWords.length == 0
-            f.write("No Data Found")
-        elsif
-        
-        list.filteredWords.each  { |ele| f.puts(ele)} 
-            
-           
-        end
-        
-        f.close
+        Show(text_field,initValue,list)
     end
 end
