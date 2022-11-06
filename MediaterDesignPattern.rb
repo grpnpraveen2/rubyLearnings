@@ -62,40 +62,34 @@ def Show(tf,iv,ll)
     if ll.filteredWords.length == 0
         f.write("No Data Found")
     elsif
-    
     ll.filteredWords.each  { |ele| f.puts(ele)} 
-        
-        
     end
-    
     f.close
 end
 
-
-
 # instances 
 list = List.new(l)  
-
 text_field = TextFieldWithObserver.new 
-
 mediator = ListSearchMediator.new(text_field, list)
-
 
 # user input 
 b=true
-
 initValue=""
+#loop
 while b
     system "clear"
     print initValue.to_sym
     inp=gets.chomp
     if inp=="-2"
         b=false
-    elsif inp=="-1"
-        initValue=initValue[0,initValue.length-1]
-        Show(text_field,initValue,list)
+        f=File.open('test.txt','w+')
+        f.close
     else
-        initValue=initValue + inp.chomp
+        if inp=="-1"
+            initValue=initValue[0,initValue.length-1]
+        else
+            initValue=initValue + inp.chomp
+        end
         Show(text_field,initValue,list)
     end
 end
