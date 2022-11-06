@@ -1,8 +1,17 @@
+# dataset reading and storing it as an array
+wf=File.open("words.txt",'r')
+l=Array.new
+for i in wf.readlines
+    l.push(i.chomp)
+end
+
+# Creating necessary classes 
 class List
-    attr_accessor :words
+    attr_accessor :words, :filteredWords
     
     def initialize(words)
         @words = words
+        @filteredWords=[]
     end
 end
 
@@ -13,7 +22,6 @@ class TextField
       @value = ""
     end
 end
-  
 
 class TextFieldWithObserver < TextField
     attr_reader :observers
@@ -24,13 +32,9 @@ class TextFieldWithObserver < TextField
     end
 
     def value=(value)
-        super
-        observers.each { |observer| observer.text_field_changed }
+        observers.each { |observer| observer.text_field_changed(value) }
     end
 end
-  
-
-  
 
 class ListSearchMediator
     def initialize(text_field, list)
@@ -39,29 +43,71 @@ class ListSearchMediator
         @list = list
     end
 
-    def text_field_changed
-        @list.words = @list.words.inject([]) do |narrowed_list, word|
-        if word.start_with?(@text_field.value)
+    def text_field_changed(value)
+        p "Value: "+value
+       @list.filteredWords =@list.words.inject([]) do |narrowed_list, word|
+      
+        if word.start_with?(value)
             narrowed_list.push(word)
         end
         narrowed_list
         end
     end
 end
-  
+# helper method 
 
-list = List.new(["apple", "avocado", "banana", "kiwi", "mango", "watermelon"])  # basic list class
+def Show(tf,iv,ll)
+    tf.value = iv
+    f=File.open('test.txt','w+')
+    if ll.filteredWords.length == 0
+        f.write("No Data Found")
+    elsif
+    
+    ll.filteredWords.each  { |ele| f.puts(ele)} 
+        
+        
+    end
+    
+    f.close
+end
 
-text_field = TextFieldWithObserver.new # text field along with some 
+
+
+# instances 
+list = List.new(l)  
+
+text_field = TextFieldWithObserver.new 
 
 mediator = ListSearchMediator.new(text_field, list)
 
 
-text_field.value = "a"
-puts list.words.inspect
-p text_field.observers.length
-for i in text_field.observers
-    p i
-    break 
-end
+# user input 
+b=true
 
+initValue=""
+while b
+    system "clear"
+    print initValue.to_sym
+    inp=gets.chomp
+    if inp=="-2"
+        b=false
+    elsif inp=="-1"
+        initValue=initValue[0,initValue.length-1]
+        Show(text_field,initValue,list)
+    else
+        initValue=initValue + inp.chomp
+        text_field.value = initValue
+        # puts list.filteredWords.inspect
+        f=File.open('test.txt','w+')
+        if list.filteredWords.length == 0
+            f.write("No Data Found")
+        elsif
+        
+        list.filteredWords.each  { |ele| f.puts(ele)} 
+            
+           
+        end
+        
+        f.close
+    end
+end
