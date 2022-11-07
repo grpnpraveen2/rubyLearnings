@@ -78,7 +78,7 @@ initValue=""
 #loop
 while b
     system "clear"
-    # print initValue.to_sym
+    print initValue.to_sym
     inp=gets.chomp
     if inp=="-2"
         b=false
