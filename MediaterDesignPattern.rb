@@ -44,7 +44,7 @@ class ListSearchMediator
     end
 
     def text_field_changed(value)
-        p "Value: "+value
+        # p "Value: "+value
        @list.filteredWords =@list.words.inject([]) do |narrowed_list, word|
       
         if word.start_with?(value)
@@ -78,7 +78,7 @@ initValue=""
 #loop
 while b
     system "clear"
-    print initValue.to_sym
+    # print initValue.to_sym
     inp=gets.chomp
     if inp=="-2"
         b=false
